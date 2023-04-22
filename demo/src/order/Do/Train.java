@@ -15,7 +15,7 @@ public class Train {
                 ", name='" + name + '\'' +
                 ", startTime=" + startTime +
                 ", arriveTime=" + arriveTime +
-                ", arr=" + Arrays.toString(arr) +
+                ", arr=" + arr.toString() +
                 ", seatNum=" + seatNum +
                 '}';
     }
@@ -54,11 +54,11 @@ public class Train {
         this.arriveTime = arriveTime;
     }
 
-    public String[] getArr() {
+    public Node getArr() {
         return arr;
     }
 
-    public void setArr(String[] arr) {
+    public void setArr(Node arr) {
         this.arr = arr;
     }
 
@@ -70,10 +70,10 @@ public class Train {
         this.seatNum = seatNum;
     }
 
-    private String[] arr;  //站点
+    private Node arr;  //站点
     private int seatNum;
 
-    public Train(String id, String name, Date startTime, Date arriveTime, String[] arr, int seatNum) {
+    public Train(String id, String name, Date startTime, Date arriveTime, Node arr, int seatNum) {
         this.id = id;
         this.name = name;
         this.startTime = startTime;

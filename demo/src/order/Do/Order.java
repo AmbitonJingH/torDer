@@ -54,7 +54,7 @@ public class Order extends Train{
     }
 
 
-    public Order(String id, String name, Date startTime, Date arriveTime, String[] arr, int seatNum, String sfz, String id1, float money, Date creatOrderTime) {
+    public Order(String id, String name, Date startTime, Date arriveTime, Node arr, int seatNum, String sfz, String id1, float money, Date creatOrderTime) {
         super(id, name, startTime, arriveTime, arr, seatNum);
         this.sfz = sfz;
         this.id = id1;
@@ -62,7 +62,7 @@ public class Order extends Train{
         this.creatOrderTime = creatOrderTime;
     }
 
-    public Order(String id, String name, Date startTime, Date arriveTime, String[] arr, int seatNum) {
+    public Order(String id, String name, Date startTime, Date arriveTime, Node arr, int seatNum) {
         super(id, name, startTime, arriveTime, arr, seatNum);
     }
 }

@@ -1,11 +1,18 @@
 package order.Service;
 
+import order.Dao.BuyTicket;
+import order.Dao.CreateTrain;
 import order.Dao.WorkDao;
+import order.Do.Node;
+import order.Do.Train;
 import order.Do.User;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
-public class WorkDaoService implements WorkDao {
+public class WorkDaoService implements WorkDao, BuyTicket, CreateTrain {
 
     public User[] data = new User[10];
     @Override
@@ -82,5 +89,48 @@ public class WorkDaoService implements WorkDao {
             return true;
         }
     }
+
+    @Override
+    public int buyTicket(String name, String sfz, String phone) {
+        return 0;
+    }
+
+    @Override
+    public int buyBaoXian(String name, String sfz, String phone) {
+        return 0;
+    }
+
+    @Override
+    public int buyTicket(User user) {
+        return 0;
+    }
+
+    @Override
+    public int buyBaoXian(User user) {
+        return 0;
+    }
+
+    @Override
+    public Train[] createTrains() {
+
+        Train train1 = new Train("G2000","和谐号",new Date(),new Date(),new Node("111"),500);
+
+        return new Train[0];
+    }
     //查询用户信息
+    public static void main(String[] args) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        String startTime = "2023-4-22";
+
+        String endTime = "2023-4-23";
+
+        Date start = simpleDateFormat.parse(startTime);
+
+        Date end = simpleDateFormat.parse(endTime);
+
+        System.out.println(simpleDateFormat.format(start));
+        System.out.println(simpleDateFormat.format(end));
+
+    }
 }
