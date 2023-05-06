@@ -12,51 +12,53 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+
 public class WorkDaoService implements WorkDao, BuyTicket, CreateTrain {
 
     public User[] data = new User[10];
+
+
+
     @Override
     public int login(User user) {
-        for (User user1:data){
+        for(User user1:data){
             if(user.getName().equals(user1.getName())&&user.getPassword().equals(user1.getPassword())){
                 System.out.println(user1.toString());
-                System.out.println("登陆成功");
+                System.out.println("登录成功");
                 return user1.getId();
-            }else if (user.getName().equals(user1.getName())&&!user.getPassword().equals(user1.getPassword())){
+            }else if(user.getName().equals(user1.getName())&&!user.getPassword().equals(user1.getPassword())){
                 System.out.println("密码输入错误");
                 return -1;
             }
         }
+        System.out.println("用户不存在");
         return 0;
     }
-
     @Override
     public User sign(User user) {
-        Scanner input = new Scanner(System.in);
-        System.out.print("请输入你的姓名：");
-        String name = input.next();
-        System.out.print("请输入你的电话号码：");
-        String phone = input.next();
-        System.out.print("请输入你的密码：");
-        String password1 = input.next();
-        System.out.print("请确认你的密码：");
-        String password2 = input.next();
-        if (checkPhone(phone)&&checkPassword(password1,password2)){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("请输入你的姓名:");
+        String name = scanner.nextLine();
+        System.out.print("请输入你的电话号码:");
+        String phone = scanner.nextLine();
+        System.out.print("请输入你的密码:");
+        String password1 = scanner.nextLine();
+        System.out.print("请确认你的密码:");
+        String password2 = scanner.nextLine();
+        if(checkPhone(phone)&&checkPassword(password1,password2)){
             user.setName(name);
-            user.setPhone(phone);
             user.setPassword(password1);
-            System.out.println("注册成功！");
-           // System.out.println(user.toString());
+            user.setPhone(phone);
+            System.out.println("注册成功");
             data[user.getId()-1] = user;
-        }else {
+        }else{
             return null;
         }
         return null;
     }
-
     @Override
     public void searchUserInfo(int id) {
-        for (User user:data){
+        for(User user: data){
             if(user.getId()==id){
                 System.out.println(user);
                 return;
@@ -66,26 +68,27 @@ public class WorkDaoService implements WorkDao, BuyTicket, CreateTrain {
         return;
     }
 
+
     //核验密码
-    boolean checkPassword(String first,String second) {
-        if (first.length()<6){
+    boolean checkPassword(String first,String second){
+        if(first.length()<6){
             System.out.println("密码不符合规矩");
             return false;
         }
-        if (first.equals(second)){
+        if(first.equals(second)){
             return true;
-        }else {
+        }else{
             System.out.println("两次密码输入不一致");
             return false;
         }
-
     }
-    //核验电话号码
+
+    //核验电话号
     boolean checkPhone(String phone){
-        if (phone.length()!=11){
-            System.out.println("电话号码不正确");
+        if(phone.length()!=11){
+            System.out.println("电话号不正确");
             return false;
-        }else {
+        }else{
             return true;
         }
     }
@@ -111,26 +114,51 @@ public class WorkDaoService implements WorkDao, BuyTicket, CreateTrain {
     }
 
     @Override
-    public Train[] createTrains() {
+    public  Train[] createTrains(String id,String name,String node) throws ParseException {
 
-        Train train1 = new Train("G2000","和谐号",new Date(),new Date(),new Node("111"),500);
 
-        return new Train[0];
+        Train train1 = new Train("G2000","和谐号",creatDate("2022-4-22 08:00:00"),creatDate("2022-4-23 08:00:00"),createTrainNode(node),500);
+        //System.out.println(train1.toString());
+        Train[] trains = {train1};
+        return trains;
     }
-    //查询用户信息
-    public static void main(String[] args) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        String startTime = "2023-4-22";
+    //字符串转date时间
+    public Date creatDate(String time) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        if(time.length()==0 || time.isEmpty()){
+            Date now = new Date();
+            String res = simpleDateFormat.format(now);
+            Date now1 = simpleDateFormat.parse(res);
+            return now1;
+        }else{
+            Date start = simpleDateFormat.parse(time);
+            return start;
+        }
+    }
 
-        String endTime = "2023-4-23";
 
-        Date start = simpleDateFormat.parse(startTime);
+//车站的创建
 
-        Date end = simpleDateFormat.parse(endTime);
+    public  Node createTrainNode(String msg){
 
-        System.out.println(simpleDateFormat.format(start));
-        System.out.println(simpleDateFormat.format(end));
+        if(msg.isEmpty() || msg.length()==0){
+            return null;
+        }
+        String[] arr =  msg.split(",");
+        Node node1 = new Node("");
+        Node nodeHead = node1;
+        for(String s : arr){
+            Node node = new Node(s);
+            node1.setNext(node);
+            node1 = node;
+        }
+        System.out.println(nodeHead.getNext().toString());
+        return nodeHead.getNext();
+    }
+
+
+    public static void main(String[] args) throws ParseException{
 
     }
 }

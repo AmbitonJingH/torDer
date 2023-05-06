@@ -1,12 +1,17 @@
 package order.controller;
 
+import order.Dao.WinChooseTrain;
 import order.Do.User;
+import order.Menus.Pages1;
+import order.Service.WinChooseTrainService;
 import order.Service.WorkDaoService;
 
+import java.text.ParseException;
 import java.util.Scanner;
 
 public class TestWorkController {
     WorkDaoService service = new WorkDaoService();
+    WinChooseTrainService service1 = new WinChooseTrainService();
     public void Sign(){
         User user = new User(1);
         service.sign(user);
@@ -29,11 +34,16 @@ public class TestWorkController {
         user.setPassword(password);
         service.login(user);
     }
+    public void createTrain() throws ParseException {
 
-    public static void main(String[] args) {
+    }
+    public void SearchTrain(String startLocal,String endLocal) throws ParseException {
+        service1.SearchTrain(startLocal,endLocal);
+    }
+    public static void main(String[] args) throws ParseException, InterruptedException {
         TestWorkController controller = new TestWorkController();
-        controller.Sign();
-        controller.login();
-        //controller.searchUserinfo();
+        Pages1 pages1 = new Pages1();
+        pages1.Menu1TrainList();
+        controller.SearchTrain("三亚","安康");
     }
 }

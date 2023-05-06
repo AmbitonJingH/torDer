@@ -12,14 +12,21 @@ public class Train {
     public String toString() {
         return "Train{" +
                 "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", startTime=" + startTime +
-                ", arriveTime=" + arriveTime +
-                ", arr=" + arr.toString() +
-                ", seatNum=" + seatNum +
+                ", 列车名称='" + name + '\'' +
+                ", 发车时间=" + startTime +"\n"+
+                ", 到站时间=" + arriveTime +
+                ", 站点信息=" + showNode(arr) +
+                ", 座位数=" + seatNum +
                 '}';
     }
-
+    public String showNode(Node node){
+        String list = "";
+        while (node!=null){
+            list = list + "站点:"+node.getName()+" 到达时间:"+"2023-04-22 4:00:00"+"\n";
+            node = node.getNext();
+        }
+        return list;
+    }
     private Date arriveTime;
 
     public String getId() {
